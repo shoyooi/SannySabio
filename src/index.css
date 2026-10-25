@@ -12,7 +12,6 @@
 
   --margin: 24px;
   --content-max: 1180px;
-  --gutter: max(var(--margin), calc((100vw - var(--content-max)) / 2 + var(--margin)));
 }
 
 @media (min-width: 720px) {
@@ -67,14 +66,24 @@ a { color: inherit; }
 /* Nav */
 .nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s ease;
+}
+
+.nav-scrolled {
+  border-bottom-color: var(--line);
+}
+
+.nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px var(--gutter);
-  mix-blend-mode: difference;
-  color: #fff;
+  min-height: 64px;
 }
 
 .nav-mark {
@@ -83,6 +92,7 @@ a { color: inherit; }
   font-size: 1.2rem;
   text-decoration: none;
   letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .nav-links {
@@ -95,10 +105,11 @@ a { color: inherit; }
   .nav-links { gap: 32px; font-size: 0.92rem; }
 }
 
-.nav-links a { text-decoration: none; }
+.nav-links a { text-decoration: none; color: var(--ink); transition: color 0.2s ease; }
+.nav-links a:hover { color: var(--accent); }
 
 .nav-links span {
-  opacity: 0.6;
+  color: var(--faint);
   font-size: 0.72rem;
   margin-right: 6px;
   font-variant-numeric: tabular-nums;
@@ -107,7 +118,7 @@ a { color: inherit; }
 .corner-index {
   display: none;
   position: fixed;
-  left: var(--gutter);
+  left: max(var(--margin), calc((100% - var(--content-max)) / 2 + var(--margin)));
   bottom: 24px;
   z-index: 40;
   font-size: 0.8rem;
