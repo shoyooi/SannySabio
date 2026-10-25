@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { site } from '../data/site'
+import { site } from '../data/portfolio'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,7 +32,7 @@ export default function Contact() {
     <section id="contact" className="contact" ref={sectionRef}>
       <div className="wrap">
         <div className="section-head">
-          <p className="section-label">Get in touch</p>
+          <p className="section-label"><em className="chapter">Chapter III</em>Get in touch</p>
           <p className="section-count">03</p>
         </div>
         <h2 className="contact-title">Let's build something that holds up.</h2>
