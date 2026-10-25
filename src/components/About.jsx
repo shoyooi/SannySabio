@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Portrait from './Portrait'
-import { site } from '../data/site'
+import { about } from '../data/portfolio'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -11,7 +12,7 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.about-quote, .about-body, .about-portrait', {
+      gsap.from('.about-quote, .about-body, .text-link, .about-portrait', {
         opacity: 0,
         y: 20,
         duration: 0.7,
@@ -28,28 +29,16 @@ export default function About() {
     <section id="about" ref={sectionRef}>
       <div className="wrap">
         <div className="section-head">
-          <p className="section-label">About</p>
+          <p className="section-label"><em className="chapter">Chapter II</em>About</p>
           <p className="section-count">02</p>
         </div>
         <div className="about-grid">
           <div>
-            <p className="about-quote">
-              Most of what I build sits between two or three disciplines at once.
-            </p>
-            <p className="about-body">
-              I'm <strong>{site.name}</strong>, a BS Information Technology
-              student at the College of Computing and Information Sciences,
-              Cor Jesu College, based in <strong>{site.location}</strong>. My
-              work spans a blockchain capstone, an AR learning app, and a
-              venture prototype for local discovery — projects that each need
-              a working build and a clear case for why it matters.
-            </p>
-            <p className="about-body">
-              Right now I'm learning front-end animation with React and GSAP,
-              smart-contract development with Solidity, and the information
-              assurance and data privacy side of building software people can
-              trust.
-            </p>
+            <p className="about-quote">{about.quote}</p>
+            {about.short.map((p) => (
+              <p className="about-body" key={p}>{p}</p>
+            ))}
+            <Link className="text-link" to="/about">More about me →</Link>
           </div>
           <Portrait className="about-portrait" />
         </div>
