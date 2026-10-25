@@ -1,23 +1,24 @@
 # Portfolio
 
-Personal portfolio for Sho, a BS Information Technology student at Cor Jesu College (Digos City). A single-page site with an animated hero, a project card grid, an about section, and contact links, built with React and GSAP.
+Personal portfolio for Sho, a BS Information Technology student at Cor Jesu College (Digos City). A chaptered, editorial site with an animated hero, a live local-time clock, a project card grid, a short About section plus a full About page, and contact links, built with React and GSAP.
 
 ![Portfolio screenshot](docs/screenshot.png)
 
 ## Tech stack
 
 - [React 18](https://react.dev) + [Vite](https://vitejs.dev)
-- [React Router 6](https://reactrouter.com) — routing, with a 404 page and hash-based section links
+- [React Router 6](https://reactrouter.com) — routes for Home and About, a 404 page, and hash-based section links
 - [GSAP](https://gsap.com) + ScrollTrigger — hero entrance timeline and scroll-triggered reveals
 - Plain CSS with custom properties, mobile-first
+- Fraunces (serif) and Inter (sans) from Google Fonts
 
 ## Project structure
 
 ```
 src/
-  components/   Nav, Hero, About, Projects, ProjectCard, Contact, Footer, Portrait, ScrollManager
-  pages/        Home, NotFound
-  data/         site.js (name, links) and projects.js (project cards)
+  components/   Nav, Hero, Clock, About, Projects, ProjectCard, Contact, Footer, Portrait, ScrollManager
+  pages/        Home, About, NotFound
+  data/         portfolio.js — all personal content in one file
   index.css     design tokens and all styles
 ```
 
@@ -39,8 +40,9 @@ npm run preview   # serve the production build locally
 
 ## Customizing
 
-- **Your details** — edit `src/data/site.js`. Links left empty are hidden automatically.
-- **Projects** — edit `src/data/projects.js`. Each entry takes a title, description, tech list, `image`, `github`, and `demo`.
+- **Everything** — edit `src/data/portfolio.js`. It holds your details, projects, and About content. Links left empty are hidden automatically.
+- **Projects** — each entry takes a title, description, tech list, `image`, `github`, and `demo`.
+- **Clock** — set `timezone` in `portfolio.js` to change the city time shown in the hero.
 - **Screenshots** — save images in `public/projects/` and set `image: '/projects/your-file.png'`.
 - **Photo** — save a portrait as `public/profile.jpg`. An initial is shown until it exists.
 
