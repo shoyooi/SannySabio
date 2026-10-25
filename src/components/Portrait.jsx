@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { site } from '../data/site'
+import { site } from '../data/portfolio'
 
 // Shows /profile.jpg, falling back to an initial if the file isn't there.
 export default function Portrait({ className }) {
