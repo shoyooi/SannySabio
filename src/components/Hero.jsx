@@ -33,7 +33,7 @@ export default function Hero() {
       <div className="wrap">
         <Portrait className="hero-portrait" />
         <p className="hero-eyebrow">
-          <span><em className="chapter">Prologue</em>{site.role}</span>
+          <span>{site.role}</span>
         </p>
         <h1 className="hero-name">
           {LINES.map((line) => (

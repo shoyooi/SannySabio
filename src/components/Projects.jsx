@@ -28,7 +28,7 @@ export default function Projects() {
     <section id="work" ref={sectionRef}>
       <div className="wrap">
         <div className="section-head">
-          <p className="section-label"><em className="chapter">Chapter I</em>Selected work</p>
+          <p className="section-label">Selected work</p>
           <p className="section-count">{String(projects.length).padStart(2, '0')}</p>
         </div>
         <div className="project-grid">

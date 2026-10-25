@@ -1,6 +1,6 @@
 # Portfolio
 
-Personal portfolio for Sho, a BS Information Technology student at Cor Jesu College (Digos City). A chaptered, editorial site with an animated hero, a live local-time clock, a project card grid, a short About section plus a full About page, and contact links, built with React and GSAP.
+Personal portfolio for Sho, a BS Information Technology student at Cor Jesu College (Digos City). An editorial site with an animated hero, a live local-time clock, a project card grid, a short About section plus a full About page, and contact links, built with React and GSAP.
 
 ![Portfolio screenshot](docs/screenshot.png)
 

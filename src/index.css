@@ -155,13 +155,6 @@ section {
   margin: 0;
 }
 
-.chapter {
-  font-family: var(--serif);
-  font-style: italic;
-  color: var(--accent);
-  margin-right: 10px;
-}
-
 .section-count {
   font-size: 0.85rem;
   color: var(--faint);

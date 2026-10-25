@@ -29,7 +29,7 @@ export default function About() {
     <section id="about" ref={sectionRef}>
       <div className="wrap">
         <div className="section-head">
-          <p className="section-label"><em className="chapter">Chapter II</em>About</p>
+          <p className="section-label">About</p>
           <p className="section-count">02</p>
         </div>
         <div className="about-grid">

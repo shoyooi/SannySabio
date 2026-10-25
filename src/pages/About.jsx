@@ -37,7 +37,7 @@ export default function AboutPage() {
     <div ref={scope}>
       <section className="page-hero">
         <div className="wrap">
-          <p className="section-label"><em className="chapter">Chapter II</em>About</p>
+          <p className="section-label">About</p>
           <h1 className="page-title">
             Hello, I'm <em>{site.name}</em>.
           </h1>
