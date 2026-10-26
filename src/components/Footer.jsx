@@ -27,7 +27,7 @@ export default function Footer() {
   ].filter(Boolean)
 
   return (
-    <footer className="wrap site-footer">
+    <footer className="site-footer">
       <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
       <div className="footer-social">
         {socials.map((s) => (

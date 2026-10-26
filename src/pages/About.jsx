@@ -1,67 +1,52 @@
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Portrait from '../components/Portrait'
 import Contact from '../components/Contact'
+import { revealVertical, setTheme, trackThemes } from '../lib/motion'
 import { about, site } from '../data/portfolio'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function AboutPage() {
   const scope = useRef(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    setTheme('light')
     const ctx = gsap.context(() => {
-      gsap.from('.page-title, .page-hero .about-body, .page-hero .about-portrait', {
-        opacity: 0,
-        y: 24,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-      })
-      gsap.from('.focus-item', {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '.focus-list', start: 'top 80%' },
-      })
+      revealVertical(scope.current)
+      trackThemes(gsap.utils.toArray('.panel', scope.current))
     }, scope)
-
     return () => ctx.revert()
   }, [])
 
   return (
     <div ref={scope}>
-      <section className="page-hero">
-        <div className="wrap">
-          <p className="section-label">About</p>
-          <h1 className="page-title">
-            Hello, I'm <em>{site.name}</em>.
-          </h1>
-          <div className="about-grid">
-            <div>
-              {about.short.map((p) => (
-                <p className="about-body" key={p}>{p}</p>
-              ))}
-              <Link className="text-link" to={{ pathname: '/', hash: '#work' }}>See the work →</Link>
-            </div>
-            <Portrait className="about-portrait" />
+      <section className="panel page-hero" data-theme="light">
+        <div className="wrap about-hero-grid">
+          <div className="about-hero-left">
+            <p className="chapter" data-reveal>About</p>
+            <h1 className="page-title" data-reveal>
+              Hello, I'm<br /><em>{site.name}</em>.
+            </h1>
+            {about.short.map((p) => (
+              <p className="about-body" key={p} data-reveal>{p}</p>
+            ))}
+            <Link className="more-link" to={{ pathname: '/', hash: '#work' }} data-reveal>
+              See the work <span aria-hidden="true">→</span>
+            </Link>
           </div>
+          <Portrait className="about-portrait" />
         </div>
       </section>
 
-      <section>
+      <section className="panel" data-theme="light">
         <div className="wrap">
           <div className="section-head">
-            <p className="section-label">What I work on</p>
+            <p className="chapter" data-reveal>What I work on</p>
             <p className="section-count">{String(about.focus.length).padStart(2, '0')}</p>
           </div>
           <ol className="focus-list">
             {about.focus.map((f, i) => (
-              <li className="focus-item" key={f.title}>
+              <li className="focus-item" key={f.title} data-reveal>
                 <span className="focus-num">{String(i + 1).padStart(2, '0')}</span>
                 <h2 className="focus-title">{f.title}</h2>
                 <p className="focus-text">{f.text}</p>
@@ -71,20 +56,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section>
+      <section className="panel" data-theme="light">
         <div className="wrap">
           <div className="section-head">
-            <p className="section-label">Currently learning</p>
+            <p className="chapter" data-reveal>Currently learning</p>
           </div>
           <ul className="learning-list">
             {about.learning.map((l) => (
-              <li key={l}>{l}</li>
+              <li key={l} data-reveal>{l}</li>
             ))}
           </ul>
         </div>
       </section>
 
-      <Contact />
+      <Contact theme="dark" />
     </div>
   )
 }

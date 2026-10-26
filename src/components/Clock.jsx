@@ -1,29 +1,35 @@
 import { useEffect, useState } from 'react'
 import { site } from '../data/portfolio'
 
-function formatTime() {
-  return new Intl.DateTimeFormat('en-US', {
+function read() {
+  const now = new Date()
+  const time = new Intl.DateTimeFormat('en-GB', {
     timeZone: site.timezone,
-    hour: 'numeric',
+    hour: '2-digit',
     minute: '2-digit',
-    hour12: true,
-  }).format(new Date())
+    hour12: false,
+  }).format(now)
+  const offset =
+    new Intl.DateTimeFormat('en-US', { timeZone: site.timezone, timeZoneName: 'shortOffset' })
+      .formatToParts(now)
+      .find((p) => p.type === 'timeZoneName')?.value ?? ''
+  return { time, offset }
 }
 
-// Live local time for the city I'm based in.
+// Location plus live local time, e.g. "(GMT+8) 09:51".
 export default function Clock() {
-  const [time, setTime] = useState(formatTime)
+  const [{ time, offset }, setNow] = useState(read)
 
   useEffect(() => {
-    const id = setInterval(() => setTime(formatTime()), 1000)
+    const id = setInterval(() => setNow(read()), 15000)
     return () => clearInterval(id)
   }, [])
 
   return (
     <p className="hero-meta">
-      <span className="live-dot" aria-hidden="true" />
+      <span>{site.location}</span>
       <span>
-        {site.location.split(',')[0]} · <time>{time}</time> local time
+        ({offset}) <time>{time}</time>
       </span>
     </p>
   )
