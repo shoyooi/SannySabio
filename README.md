@@ -44,9 +44,10 @@ npm run preview   # serve the production build locally
 - **Everything** — edit `src/data/portfolio.js`. It holds your details, projects, and About content. Links left empty are hidden automatically.
 - **Projects** — each entry takes a title, description, tech list, `image`, `github`, and `demo`.
 - **Hero intro, status line, side note** — `site.intro`, `site.status` and `site.aside` in `portfolio.js`.
-- **Certificates** — add entries to `certificates` in `portfolio.js` and save the images in `public/certificates/`. They pop in, then play as a slideshow (pause on hover, arrows, thumbnails, click to enlarge).
+- **Certificates** — add entries to `certificates` in `portfolio.js` and save the images in `public/certificates/`. On wide screens they form a scroll-driven viewer: scrolling down walks through the slides (arrows and thumbnails scroll you to a slide, click to enlarge). On small screens they render as a stacked gallery that reveals as you scroll.
 - **Clock** — set `timezone` in `portfolio.js` to change the city time shown in the hero.
-- **Screenshots** — save images in `public/projects/` and set `image: '/projects/your-file.png'`.
+- **Screenshots** — save images in `public/projects/` and set `image: '/projects/your-file.webp'`.
+- **Image sizes** — run `node scripts/optimize-images.mjs` after dropping new PNG/JPGs into `public/projects/` or `public/certificates/`. It converts them to compressed WebP, removes the originals, and regenerates `public/og-cover.jpg` (the social-share card, cropped from `docs/screenshot.png`).
 - **Photo** — save a portrait as `public/profile.jpg`. An initial is shown until it exists.
 
 ## Deployment

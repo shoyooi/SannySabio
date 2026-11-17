@@ -3,12 +3,14 @@ import { site } from '../data/portfolio'
 
 function read() {
   const now = new Date()
-  const time = new Intl.DateTimeFormat('en-GB', {
+  let time = new Intl.DateTimeFormat('en-GB', {
     timeZone: site.timezone,
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
   }).format(now)
+  // Some engines format midnight as "24:xx"; normalize to "00:xx".
+  if (time.startsWith('24:')) time = `00:${time.slice(3)}`
   const offset =
     new Intl.DateTimeFormat('en-US', { timeZone: site.timezone, timeZoneName: 'shortOffset' })
       .formatToParts(now)

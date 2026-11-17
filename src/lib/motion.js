@@ -39,6 +39,31 @@ export function revealVertical(scope) {
   })
 }
 
+// Count-up for [data-count] elements. Pass containerAnimation when inside
+// the pinned horizontal track (start then uses horizontal percentages).
+export function statCounters(scope, { containerAnimation, start = 'top 85%' } = {}) {
+  gsap.utils.toArray('[data-count]', scope).forEach((el) => {
+    const target = Number(el.dataset.count) || 0
+    const pad2 = el.dataset.pad === '2'
+    const state = { val: 0 }
+    gsap.to(state, {
+      val: target,
+      duration: 1.6,
+      ease: 'power2.out',
+      onUpdate: () => {
+        const n = String(Math.round(state.val))
+        el.textContent = pad2 ? n.padStart(2, '0') : n
+      },
+      scrollTrigger: {
+        trigger: el,
+        start,
+        once: true,
+        ...(containerAnimation ? { containerAnimation } : {}),
+      },
+    })
+  })
+}
+
 // Jump to a section by id. In horizontal mode the page is a pinned track, so
 // we translate the panel's x-offset into the matching vertical scroll position.
 export function goToSection(id) {

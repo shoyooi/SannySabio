@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom'
-import { about } from '../data/portfolio'
+import { about, certificates, projects } from '../data/portfolio'
+
+// True numbers, computed from the data file so they never drift.
+const STATS = [
+  { value: projects.length, label: 'Projects built' },
+  { value: certificates.length, label: 'Certifications earned' },
+  { value: 1, label: 'EDTECH system in campus use' },
+]
 
 export default function About() {
   return (
@@ -15,6 +22,14 @@ export default function About() {
             More about me <span aria-hidden="true">→</span>
           </Link>
         </div>
+      </div>
+      <div className="about-stats" data-reveal>
+        {STATS.map((s) => (
+          <div className="stat" key={s.label}>
+            <span className="stat-num" data-count={s.value} data-pad="2">{String(s.value).padStart(2, '0')}</span>
+            <span className="stat-label">{s.label}</span>
+          </div>
+        ))}
       </div>
     </section>
   )

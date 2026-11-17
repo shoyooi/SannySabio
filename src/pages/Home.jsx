@@ -7,7 +7,7 @@ import Projects from '../components/Projects'
 import Certificates from '../components/Certificates'
 import About from '../components/About'
 import Contact from '../components/Contact'
-import { H_QUERY, revealVertical, setTheme, trackThemes } from '../lib/motion'
+import { H_QUERY, revealVertical, setTheme, statCounters, trackThemes } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,25 +27,7 @@ export default function Home() {
       if (!ctx.conditions.h) {
         revealVertical(track)
         trackThemes(panels)
-
-        const zoomBox = track.querySelector('.the-work-preview-box')
-        const splashPanel = track.querySelector('.panel-work-splash')
-        if (zoomBox && splashPanel) {
-          gsap.fromTo(
-            zoomBox,
-            { scale: 0.85, transformOrigin: 'center center' },
-            {
-              scale: 1.35,
-              ease: 'power1.out',
-              scrollTrigger: {
-                trigger: splashPanel,
-                start: 'top 85%',
-                end: 'bottom 25%',
-                scrub: true,
-              },
-            }
-          )
-        }
+        statCounters(track)
         return
       }
 
@@ -81,6 +63,9 @@ export default function Home() {
           anticipatePin: 1,
         },
       })
+
+      // Count-up stats when the About panel slides in.
+      statCounters(track, { containerAnimation: slide, start: 'left 88%' })
 
       panels.forEach((panel, i) => {
         // Elements glide in from the right as their panel slides into view.

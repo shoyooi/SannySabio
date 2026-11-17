@@ -74,7 +74,12 @@ export default function Projects() {
           role="button"
           tabIndex={0}
           onClick={() => setShowcaseActive(true)}
-          onKeyDown={(e) => e.key === 'Enter' && setShowcaseActive(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              setShowcaseActive(true)
+            }
+          }}
         >
           <span className="hint-arrow">→</span>
           <span>Scroll or click to view showcase</span>
@@ -174,11 +179,15 @@ export default function Projects() {
                     role="button"
                     tabIndex={0}
                     className={`related-work-item${isActive ? ' is-active' : ''}`}
-                    onMouseEnter={() => setActiveIdx(idx)}
-                    onMouseOver={() => setActiveIdx(idx)}
                     onPointerEnter={() => setActiveIdx(idx)}
                     onClick={() => setActiveIdx(idx)}
                     onFocus={() => setActiveIdx(idx)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        setActiveIdx(idx)
+                      }
+                    }}
                   >
                     <div className="item-row">
                       <span className="item-title">

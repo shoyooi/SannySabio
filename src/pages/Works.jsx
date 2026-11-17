@@ -4,6 +4,8 @@ import { projects } from '../data/portfolio'
 import { setTheme } from '../lib/motion'
 import Footer from '../components/Footer'
 
+const pad = (n) => String(n).padStart(2, '0')
+
 export default function WorksPage() {
   useLayoutEffect(() => {
     setTheme('light')
@@ -30,7 +32,6 @@ export default function WorksPage() {
         {/* Horizontal Scrollable Gallery / Grid matching reference */}
         <div className="all-work-gallery">
           {projects.map((p, idx) => {
-            const num = String(idx + 1).padStart(2, '0')
             return (
               <article key={p.id} className="all-work-card">
                 <div
@@ -50,7 +51,7 @@ export default function WorksPage() {
                 </div>
 
                 <div className="all-work-caption">
-                  <span className="all-work-num">{num}.</span>
+                  <span className="all-work-num">{pad(idx + 1)}.</span>
                   <div className="all-work-info">
                     <p className="all-work-category">
                       {p.category ? p.category.toUpperCase() : 'PROJECT'} — {p.year || '2026'}
@@ -91,7 +92,7 @@ export default function WorksPage() {
               <span className="upcoming-icon">+</span>
             </div>
             <div className="all-work-caption">
-              <span className="all-work-num">0{projects.length + 1}.</span>
+              <span className="all-work-num">{pad(projects.length + 1)}.</span>
               <div className="all-work-info">
                 <p className="all-work-category">IN DEVELOPMENT — 2026</p>
                 <h2 className="all-work-item-title">More Projects Coming Soon</h2>

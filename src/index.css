@@ -352,6 +352,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Hero ---------- */
 .panel-hero {
+  position: relative;
   min-height: calc(100svh - var(--bar-h));
   display: flex;
   flex-direction: column;
@@ -359,6 +360,36 @@ button { font: inherit; color: inherit; }
   gap: 40px;
   padding-top: 40px;
   padding-bottom: 36px;
+}
+
+/* Geometric arc motif behind the name — drawn on load via DrawSVG. */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: -4vw;
+  width: clamp(300px, 46vw, 620px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.hero-art .arc { fill: none; stroke: var(--dark-accent); stroke-width: 1.25; }
+.hero-art .a1 { opacity: 0.9; }
+.hero-art .a2 { opacity: 0.5; }
+.hero-art .a3 { opacity: 0.28; }
+.hero-art .sweep { stroke-width: 2; opacity: 0.85; }
+.hero-art .hero-dot { fill: var(--dark-accent); }
+
+.hero-name, .hero-sub, .hero-foot { position: relative; z-index: 1; }
+
+@media (max-width: 719px) {
+  .hero-art {
+    width: clamp(220px, 70vw, 320px);
+    right: -12vw;
+    opacity: 0.35;
+  }
 }
 
 .hero-name {
@@ -460,109 +491,6 @@ button { font: inherit; color: inherit; }
 
 .intro-portrait { width: min(320px, 70vw); aspect-ratio: 3 / 4; }
 
-/* ---------- Work (Chapter II) ---------- */
-.panel-work { display: flex; flex-direction: column; gap: 48px; }
-
-.work-head { display: flex; flex-direction: column; gap: 32px; }
-
-.work-title {
-  font-family: var(--serif);
-  font-weight: 400;
-  text-transform: uppercase;
-  font-size: clamp(2.6rem, 11vw, 4.6rem);
-  line-height: 0.95;
-  margin: 0 0 12px;
-}
-
-.work-title em { color: var(--accent); }
-
-.work-count { margin: 0; font-size: 0.85rem; color: var(--muted); }
-
-.project-row { display: grid; gap: 40px; }
-
-.project-card {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--line);
-  padding-top: 14px;
-  min-height: 0;
-}
-
-.project-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 0 0 14px;
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.project-cover {
-  aspect-ratio: 16 / 10;
-  background: #ffffff;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr);
-  place-items: center;
-  margin-bottom: 18px;
-  min-width: 0;
-}
-
-.project-card:hover .project-cover { background: #ffffff; }
-
-.project-cover img {  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-  padding: 10%;
-  display: block; }
-
-.project-cover-fallback {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(4rem, 12vw, 7rem);
-  line-height: 1;
-  color: #1d1c19;
-  opacity: 0.12;
-}
-
-.project-title {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(1.35rem, 5vw, 1.8rem);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-  margin: 0 0 10px;
-}
-
-.project-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.42; margin: 0 0 14px; }
-
-.project-stack {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px;
-  font-size: 0.76rem;
-  color: var(--fg);
-}
-
-.project-stack li + li::before { content: '/'; margin: 0 0.6em; opacity: 0.4; }
-
-.project-links { display: flex; gap: 20px; margin-top: auto; font-size: 0.88rem; }
-
-.project-links a {
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 1px;
-  transition: opacity 0.2s ease;
-}
-
-.project-links a:hover { opacity: 0.6; }
-
 /* ---------- About panel (Chapter III) ---------- */
 .panel-about { display: flex; flex-direction: column; gap: 40px; }
 .about-layout { display: grid; gap: 40px; }
@@ -578,6 +506,32 @@ button { font: inherit; color: inherit; }
 
 .about-copy { display: flex; flex-direction: column; align-items: flex-start; }
 .about-body { max-width: 52ch; color: var(--muted); font-size: 1.05rem; line-height: 1.45; margin: 0 0 18px; }
+
+/* Count-up stats (About panel) */
+.about-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px clamp(40px, 6vw, 96px);
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
 
 /* ---------- Contact (Chapter IV) ---------- */
 .panel-contact {
@@ -841,41 +795,9 @@ button { font: inherit; color: inherit; }
   gap: clamp(40px, 5vw, 88px);
 }
 
-.hs.is-horizontal .work-head {
-    flex: 0 0 clamp(220px, 21vw, 330px);
-  justify-content: space-between;
-}
-
-.hs.is-horizontal .work-title { font-size: clamp(2.6rem, 4.2vw, 4.6rem); }
-
-.hs.is-horizontal .project-row { display: flex;
-  align-self: center;
-  gap: clamp(20px, 2.2vw, 36px);}
-
-.hs.is-horizontal .project-card {  flex: 0 0 clamp(290px, 25vw, 400px);
-  width: clamp(290px, 25vw, 400px);
-  min-width: 0;}
-
-.hs.is-horizontal .project-cover {
-   flex: none;
-  aspect-ratio: 4 / 3;
-  min-height: 0;
-}
-
-.hs.is-horizontal .project-stack { min-height: 2.7em; align-content: flex-start; }
-
-.hs.is-horizontal .project-desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: calc(1.42em * 4);
-}
-
-.hs.is-horizontal .project-title { font-size: clamp(1.3rem, 1.8vw, 1.8rem); min-height: 2.24em; }
-
 /* About */
 .hs.is-horizontal .panel-about { gap: 0; }
+.hs.is-horizontal .about-stats { margin-top: auto; }
 
 .hs.is-horizontal .about-layout {
   flex: 1;
@@ -900,27 +822,62 @@ button { font: inherit; color: inherit; }
   .panel { padding: 112px var(--pad-x); }
   .panel-hero { padding-top: 48px; padding-bottom: 40px; }
   .panel-intro { grid-template-columns: 1fr 1fr; }
-  .project-row { grid-template-columns: repeat(2, 1fr); gap: 48px 32px; }
   .about-layout { grid-template-columns: 1.2fr 1fr; gap: 56px; }
-}
-.project-cover.is-empty {
-  background: transparent;
-  border: 0;
 }
 
 /* =====================================================================
-   Certificates (Chapter III): pop-in, then an auto-playing slideshow
+   Certificates (Chapter III): pop-in stage, then scroll-driven slides —
+   scrolling down walks through the certificates in either scroll mode.
    ===================================================================== */
 .panel-certs {
   --bg: #ebe5d6;
   --line: #cdc6b4;
   --muted: #6a665b;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  padding: 0; /* each mode manages its own spacing */
 }
 
+/* Vertical page: a simple stacked gallery — scroll down, certificates
+   reveal one by one. */
+.certs-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 9vh, 88px);
+  padding: clamp(40px, 8vh, 96px) var(--pad-x);
+}
+
+.certs-item { display: flex; flex-direction: column; gap: 18px; }
+
+.certs-item-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.45 / 1;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 34px 60px -34px rgba(48, 40, 22, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.07);
+}
+
+.certs-item-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.certs-item-caption .certs-count {
+  margin: 0 0 14px;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+}
+
+.certs-item-caption .certs-name { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+
+/* Wide screens: a wider panel inside the pinned track — one scroll step
+   per slide as the panel crosses the screen. */
+.certs-scrolly { display: none; }
+
 /* On small screens: title, slideshow, then caption. */
+.certs-right { display: contents; }
 .certs-right { display: contents; }
 .certs-head { order: 0; }
 .certs-left { order: 1; }
@@ -941,6 +898,7 @@ button { font: inherit; color: inherit; }
   aspect-ratio: 1.45 / 1;
   background: #fff;
   overflow: hidden;
+  perspective: 1100px; /* depth for the fold-away card flight */
   box-shadow: 0 34px 60px -34px rgba(48, 40, 22, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.07);
   opacity: 0; /* revealed by the pop-in animation */
 }
@@ -955,31 +913,27 @@ button { font: inherit; color: inherit; }
   100% { opacity: 1; transform: none; }
 }
 
+/* Deck cards: pose (peek / active / flight) is set inline by GSAP from
+   scroll progress, so no CSS transitions here. */
 .certs-slide {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  opacity: 0;
-  transform: translateX(7%) scale(0.98);
-  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22, 0.8, 0.2, 1);
+  opacity: 0; /* GSAP scrubs this per card */
+  transform-origin: 50% 0%; /* folds upward from the top edge */
+  will-change: transform, opacity;
   pointer-events: none;
   user-select: none;
 }
 
-.certs-slide.is-active { opacity: 1; transform: none; }
-.certs-slide.is-leaving { opacity: 0; transform: translateX(-7%) scale(0.98); }
-
-/* Going backwards: slides enter from the left instead. */
-.certs-stage[data-dir='back'] .certs-slide { transform: translateX(-7%) scale(0.98); }
-.certs-stage[data-dir='back'] .certs-slide.is-active { transform: none; }
-.certs-stage[data-dir='back'] .certs-slide.is-leaving { transform: translateX(7%) scale(0.98); }
+.certs-slide.is-active { opacity: 1; }
 
 .certs-open {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 60; /* above every deck card's inline z-index */
   background: none;
   border: 0;
   padding: 0;
@@ -987,30 +941,6 @@ button { font: inherit; color: inherit; }
 }
 
 .certs-open:focus-visible { outline: 2px solid var(--fg); outline-offset: -6px; }
-
-.certs-progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  z-index: 3;
-  background: rgba(0, 0, 0, 0.08);
-  pointer-events: none;
-}
-
-.certs-progress > span {
-  display: block;
-  height: 100%;
-  background: var(--fg);
-  transform-origin: left;
-  animation: certs-fill linear forwards;
-}
-
-@keyframes certs-fill {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
 
 .certs-thumbs {
   list-style: none;
@@ -1119,39 +1049,66 @@ button { font: inherit; color: inherit; }
 
 .certs-controls button:hover { background: var(--fg); color: var(--bg); }
 
-.certs-controls .certs-play {
-  padding: 0 18px;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.certs-hint {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 
-/* Lightbox (rendered in document.body, above the rail and menu) */
+/* Full-page certificate viewer (rendered in document.body) */
 .lightbox {
   position: fixed;
   inset: 0;
   z-index: 90;
   display: grid;
   place-items: center;
-  padding: 64px 24px 24px;
-  background: rgba(20, 19, 17, 0.92);
+  padding: 72px 24px 24px;
+  background: rgba(20, 19, 17, 0.94);
   cursor: zoom-out;
   animation: lb-in 0.35s ease both;
+  overflow-y: auto;
 }
 
-.lightbox img {
-  max-width: min(1400px, 100%);
-  max-height: calc(100vh - 96px);
-  object-fit: contain;
-  background: #fff;
-  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+.lightbox-body {
+  display: grid;
+  gap: 28px;
+  justify-items: center;
+  max-width: min(1100px, 100%);
+  cursor: default;
   animation: lb-pop 0.55s cubic-bezier(0.2, 1.2, 0.4, 1) both;
 }
 
+.lightbox-body img {
+  max-width: 100%;
+  max-height: calc(100vh - 220px);
+  object-fit: contain;
+  background: #fff;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+}
+
+.lightbox-caption { color: #f4f1ea; text-align: left; width: 100%; max-width: 52ch; }
+.lightbox-caption .certs-detail,
+.lightbox-caption .certs-date { color: rgba(244, 241, 234, 0.65); }
+
+.lightbox-count {
+  font-family: var(--serif);
+  font-size: 2rem;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+
+.lightbox-count span {
+  font-family: var(--sans);
+  font-size: 0.4em;
+  letter-spacing: 0.04em;
+  color: rgba(244, 241, 234, 0.55);
+}
+
+.lightbox-back,
 .lightbox-close {
   position: absolute;
   top: 16px;
-  right: 20px;
   padding: 8px 16px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 999px;
@@ -1163,18 +1120,64 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
 }
 
+.lightbox-back { left: 20px; }
+.lightbox-close { right: 20px; }
+
+.lightbox-back:hover,
 .lightbox-close:hover { background: rgba(255, 255, 255, 0.12); }
+
+.lightbox-nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.lightbox-nav button {
+  min-width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.lightbox-nav button:hover { background: rgba(255, 255, 255, 0.12); }
 
 @keyframes lb-in  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes lb-pop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: none; } }
 
-/* Horizontal mode: slideshow on the left, details on the right. */
+/* Horizontal mode: the panel is two screens wide, but the content column
+   is one screen and is counter-translated by GSAP while the deck scrubs —
+   so the deck completes with only the certificates on screen, then the
+   panel exits cleanly into the next chapter. */
 .hs.is-horizontal .panel-certs {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(260px, 27vw, 400px);
-  grid-template-rows: minmax(0, 1fr);
-  gap: 0 clamp(40px, 4.5vw, 72px);
+  width: calc(var(--pw, calc(100vw - var(--rail))) * 2);
+  overflow: visible; /* content is kept on-screen via counter-translation */
 }
+
+.hs.is-horizontal .certs-scrolly {
+  display: block;
+  height: 100%;
+}
+
+.hs.is-horizontal .certs-list { display: none; }
+
+.hs.is-horizontal .certs-sticky {
+  width: var(--pw, calc(100vw - var(--rail)));
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+
+/* Info column was removed from the desktop deck — certificates only. */
+.hs.is-horizontal .certs-right { display: none; }
 
 .hs.is-horizontal .certs-left {
   order: 0;
@@ -1188,6 +1191,7 @@ button { font: inherit; color: inherit; }
   min-height: 0;
   display: flex;
   align-items: center;
+  justify-content: center; /* center the deck horizontally while scrolling */
 }
 
 .hs.is-horizontal .certs-stage {
@@ -1196,17 +1200,9 @@ button { font: inherit; color: inherit; }
   max-width: 100%;
 }
 
-.hs.is-horizontal .certs-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
+.hs.is-horizontal .certs-thumbs {
+  justify-content: center; /* keep the thumbnail strip centered under the deck */
 }
-
-.hs.is-horizontal .certs-head,
-.hs.is-horizontal .certs-info { order: 0; }
-
-.hs.is-horizontal .certs-title { font-size: clamp(2rem, 2.7vw, 3.2rem); }
 
 
 /* =====================================================================

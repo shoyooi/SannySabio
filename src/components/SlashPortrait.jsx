@@ -24,7 +24,7 @@ export default function SlashPortrait({ className = '' }) {
         draggable="false"
         onError={() => setFailed(true)}
       />
-      <img className="slash-piece slash-b" src="/profile.jpg" alt="" draggable="false" />
+      <img className="slash-piece slash-b" src="/profile.jpg" alt="" draggable="false" onError={() => setFailed(true)} />
       <span className="slash-line" aria-hidden="true" />
     </div>
   )

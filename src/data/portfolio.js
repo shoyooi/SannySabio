@@ -6,9 +6,9 @@ export const site = {
   initial: 'S',
   role: 'BS Information Technology — Cor Jesu College',
   tagline:
-    'I build across blockchain, augmented reality, and product design — usually on projects where several moving parts need to add up to something someone else can rely on.',
+    'I build across full-stack systems, blockchain, augmented reality, and product design — usually on projects where several moving parts need to add up to something someone else can rely on.',
   intro:
-    "Hi, I'm Sanny — a BS Information Technology in Cor Jesu College Inc, student building across blockchain, augmented reality, and product design.",
+    "Hi, I'm Sanny — a BS Information Technology student at Cor Jesu College building full-stack systems, blockchain apps, and augmented reality experiences.",
   aside:
     'Currently learning React and GSAP animation, Solidity, and the privacy side of building software.',
   status: 'Open for collaborations',
@@ -23,6 +23,19 @@ export const site = {
 // `github`, and `demo` as they become available — empty values are hidden.
 export const projects = [
   {
+    id: 'edtech-system',
+    status: 'Built — in campus use',
+    category: 'Full-Stack / EdTech',
+    year: '2025',
+    title: 'Cor Jesu College EDTECH System',
+    description:
+      'A hall booking and equipment borrowing management system I co-created for Cor Jesu College — reservation workflows, approvals, and asset tracking in one platform, with a desktop client for offline-capable campus use.',
+    stack: ['Laravel 12', 'Vue 3', 'Vuetify 3', 'TypeScript', 'Electron'],
+    image: '',
+    github: '',
+    demo: ''
+  },
+  {
     id: 'budget-chain',
     status: 'Capstone — in progress',
     category: 'Blockchain',
@@ -31,7 +44,7 @@ export const projects = [
     description:
       'A transparent fund-monitoring platform for organizations on the Polygon Amoy testnet, where every allocation and expense is recorded by a smart contract.',
     stack: ['Next.js', 'Node.js', 'Solidity', 'Polygon Amoy', 'MongoDB Atlas'],
-    image: '/projects/budget-chain.png',
+    image: '/projects/budget-chain.webp',
     github: '',
     demo: 'https://chainbudget.vercel.app/',
   },
@@ -44,7 +57,7 @@ export const projects = [
     description:
       'An augmented-reality learning tool that names and explains desktop hardware in English or Cebuano when students point a device at it.',
     stack: ['Unity', 'AR Foundation', 'C#', 'JSON'],
-    image: '/projects/desktop-components.png',
+    image: '/projects/desktop-components.webp',
     github: 'https://github.com/sannysabio-ux/DESKTOP_COMPONENTS',
     demo: '',
     bg: '#ffffff',
@@ -58,7 +71,7 @@ export const projects = [
     description:
       'A hyperlocal discovery app surfacing the hidden gems of Rizal Avenue, Digos City, prototyped across seven screens in Figma.',
     stack: ['Figma', 'Product design', 'Venture research'],
-    image: '/projects/explore.png',
+    image: '/projects/explore.webp',
     github: '',
     demo: '',
   }
@@ -73,7 +86,7 @@ export const certificates = [
     issuer: 'Wadhwani Foundation',
     detail: 'Certificate of Content Completion · 24 hours of coursework in ideation, business modeling, and financial planning',
     date: 'July 13, 2026',
-    image: '/certificates/cert-ignite.jpg',
+    image: '/certificates/cert-ignite.webp',
   },
   {
     id: 'network-defense',
@@ -81,7 +94,7 @@ export const certificates = [
     issuer: 'Cisco Networking Academy',
     detail: 'Offered by the DICT-ITU DTC Initiative',
     date: 'May 23, 2026',
-    image: '/certificates/cert-network.jpg',
+    image: '/certificates/cert-network.webp',
   },
   {
     id: 'cyber-threat-management',
@@ -89,7 +102,7 @@ export const certificates = [
     issuer: 'Cisco Networking Academy',
     detail: 'Offered by the DICT-ITU DTC Initiative',
     date: 'May 23, 2026',
-    image: '/certificates/cert-threat.jpg',
+    image: '/certificates/cert-threat.webp',
   },
   {
     id: 'endpoint-security',
@@ -97,7 +110,7 @@ export const certificates = [
     issuer: 'Cisco Networking Academy',
     detail: 'Offered by the DICT-ITU DTC Initiative',
     date: 'May 22, 2026',
-    image: '/certificates/cert-endpoint.jpg',
+    image: '/certificates/cert-endpoint.webp',
   },
   {
     id: 'cert-base',
@@ -105,17 +118,21 @@ export const certificates = [
     issuer: 'Base PH',
     detail: 'Certificate of Participation',
     date: 'September 19, 2025',
-    image: '/certificates/cert-base.png',
+    image: '/certificates/cert-base.webp',
   },
 ]
   
 export const about = {
   quote: 'Most of what I build sits between two or three disciplines at once.',
   short: [
-    "I'm Sanny, a BS Information Technology student at the College of Computing and Information Sciences, Cor Jesu College, based in Digos City. My work spans a blockchain capstone, an AR learning app, and a venture prototype for local discovery — projects that each need a working build and a clear case for why it matters.",
+    "I'm Sanny, a BS Information Technology student at the College of Computing and Information Sciences, Cor Jesu College, based in Digos City. I was one of the creators of the college's EDTECH System — a full-stack hall booking and equipment borrowing platform — and my work spans a blockchain capstone, an AR learning app, Flutter mobile development, and a venture prototype for local discovery.",
     "Right now I'm learning front-end animation with React and GSAP, smart-contract development with Solidity, and the information assurance and data privacy side of building software people can trust.",
   ],
   focus: [
+    {
+      title: 'Full-stack systems and desktop apps',
+      text: 'Laravel 12, Vue 3, Vuetify, and TypeScript — co-created the Cor Jesu College EDTECH hall booking and equipment borrowing system, shipped with an Electron desktop client.',
+    },
     {
       title: 'Blockchain and smart contracts',
       text: 'Building transparent fund-tracking on Polygon with Solidity, Next.js, and wallet-based sign-in.',
@@ -133,5 +150,5 @@ export const about = {
       text: 'Information assurance coursework, data-privacy case analysis, and system documentation that others can follow.',
     },
   ],
-  learning: ['React and GSAP animation', 'Solidity and smart-contract security', 'Information assurance and data privacy'],
+  learning: ['React and GSAP animation', 'Solidity and smart-contract security', 'Mobile development with Flutter', 'Information assurance and data privacy'],
 }
