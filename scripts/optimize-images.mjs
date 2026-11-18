@@ -1,12 +1,12 @@
 // One-off asset optimizer: converts large PNGs in public/ to WebP and
 // generates public/og-cover.jpg from docs/screenshot.png for social cards.
 // Usage:  node scripts/optimize-images.mjs
-import { glob } from 'node:fs/promises'
-import { mkdir, unlink } from 'node:fs/promises'
+import { glob, unlink } from 'node:fs/promises'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
-const root = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
 async function toWebp(file, { width = 1600, quality = 80 } = {}) {
   const out = file.replace(/\.(png|jpg|jpeg)$/i, '.webp')
@@ -17,7 +17,9 @@ async function toWebp(file, { width = 1600, quality = 80 } = {}) {
     .toFile(out)
   const kb = (n) => `${(n / 1024).toFixed(0)} KB`
   console.log(`${path.basename(file)} -> ${path.basename(out)}  ${kb(info.size)}`)
-  if (!out.endsWith(file)) await unlink(file)
+  if (path.resolve(out).toLowerCase() !== path.resolve(file).toLowerCase()) {
+    await unlink(file)
+  }
 }
 
 for await (const f of glob('public/projects/*.png', { cwd: root })) {

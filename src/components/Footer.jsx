@@ -1,45 +1,135 @@
 import { site } from '../data/portfolio'
+import { goToSection, scrollToTop } from '../lib/motion'
 
-const ICONS = {
-  github: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-      <path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" />
-    </svg>
-  ),
-  linkedin: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
-    </svg>
-  ),
-  email: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m3 7 9 6 9-6" />
-    </svg>
-  ),
-}
+const EXPLORE_LINKS = [
+  { id: 'top', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'certificates', label: 'Certificates' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'contact', label: 'Contact' },
+]
 
+/**
+ * Editorial footer matching lynard-dev.vercel.app:
+ * "Go beyond the last page.", EXPLORE & ELSEWHERE columns,
+ * atmospheric monochrome mountain-ridge artwork, and BACK TO TOP ↑.
+ */
 export default function Footer() {
-  const socials = [
-    site.github && { key: 'github', label: 'GitHub', href: site.github, external: true },
-    site.linkedin && { key: 'linkedin', label: 'LinkedIn', href: site.linkedin, external: true },
-    site.email && { key: 'email', label: 'Email', href: `mailto:${site.email}`, external: false },
+  const elsewhere = [
+    site.github && { label: 'GitHub (@shoyooi) ↗', href: site.github, external: true },
+    { label: 'EDTECH Repo (CJC Org 🔒) ↗', href: 'https://github.com/EDTECH-CJC/Edtech', external: true },
+    { label: 'ChainBudget ↗', href: 'https://chainbudget.vercel.app/', external: true },
+    site.emailUser && { label: 'Direct Email ↗', href: '#contact', isEmail: true },
   ].filter(Boolean)
 
+  const handleJump = (e, id) => {
+    e.preventDefault()
+    goToSection(id)
+  }
+
+  const handleEmailClick = (e) => {
+    e.preventDefault()
+    window.location.href = `mailto:${site.email}`
+  }
+
   return (
-    <footer className="site-footer">
-      <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
-      <div className="footer-social">
-        {socials.map((s) => (
-          <a
-            key={s.key}
-            href={s.href}
-            aria-label={s.label}
-            {...(s.external ? { target: '_blank', rel: 'noreferrer' } : {})}
-          >
-            {ICONS[s.key]}
-          </a>
-        ))}
+    <footer className="lyn-footer">
+      {/* Atmospheric Mountain / Great Wall Ridge Monochrome Engraving SVG */}
+      <svg
+        className="footer-mountain-art"
+        viewBox="0 0 1440 320"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="mountain-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0.03" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 240 L110 190 L215 215 L340 135 L460 185 L590 110 L720 175 L865 95 L990 160 L1130 85 L1270 150 L1380 115 L1440 140 L1440 320 L0 320 Z"
+          fill="url(#mountain-fade)"
+        />
+        <path
+          d="M0 240 L110 190 L215 215 L340 135 L460 185 L590 110 L720 175 L865 95 L990 160 L1130 85 L1270 150 L1380 115 L1440 140"
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity="0.22"
+          strokeWidth="1.2"
+        />
+        <path
+          d="M0 278 L160 232 L290 258 L430 192 L575 235 L740 168 L890 220 L1055 154 L1215 208 L1350 172 L1440 198 L1440 320 L0 320 Z"
+          fill="url(#mountain-fade)"
+        />
+      </svg>
+
+      <div className="lyn-container lyn-footer-inner">
+        <div className="lyn-footer-top">
+          <div className="lyn-footer-brand-col">
+            <p className="lyn-footer-badge">
+              <span className="status-dot" aria-hidden="true" />
+              {site.name.toUpperCase()} ©
+            </p>
+            <h2 className="lyn-footer-headline">
+              Go beyond
+              <br />
+              <em>the last page.</em>
+            </h2>
+            <p className="lyn-footer-sub">
+              A little space for what comes next. Available for select engineering,
+              architecture, and full-stack partnerships worldwide.
+            </p>
+          </div>
+
+          <nav className="lyn-footer-nav" aria-label="Footer Navigation">
+            <div className="lyn-footer-col">
+              <span className="lyn-footer-col-title">EXPLORE</span>
+              <ul>
+                {EXPLORE_LINKS.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`/#${item.id}`}
+                      onClick={(e) => handleJump(e, item.id)}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lyn-footer-col">
+              <span className="lyn-footer-col-title">ELSEWHERE</span>
+              <ul>
+                {elsewhere.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={item.isEmail ? handleEmailClick : undefined}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+        <div className="lyn-footer-bottom">
+          <span>
+            © {new Date().getFullYear()} {site.fullName.toUpperCase()} — ALL RIGHTS RESERVED.
+          </span>
+
+          <button type="button" className="lyn-back-top" onClick={scrollToTop}>
+            BACK TO TOP <span aria-hidden="true">↑</span>
+          </button>
+        </div>
       </div>
     </footer>
   )

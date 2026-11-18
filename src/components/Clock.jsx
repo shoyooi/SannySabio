@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { site } from '../data/portfolio'
 
-function read() {
+function readClock() {
   const now = new Date()
   let time = new Intl.DateTimeFormat('en-GB', {
     timeZone: site.timezone,
@@ -9,30 +9,24 @@ function read() {
     minute: '2-digit',
     hour12: false,
   }).format(now)
-  // Some engines format midnight as "24:xx"; normalize to "00:xx".
   if (time.startsWith('24:')) time = `00:${time.slice(3)}`
   const offset =
-    new Intl.DateTimeFormat('en-US', { timeZone: site.timezone, timeZoneName: 'shortOffset' })
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: site.timezone,
+      timeZoneName: 'shortOffset',
+    })
       .formatToParts(now)
-      .find((p) => p.type === 'timeZoneName')?.value ?? ''
-  return { time, offset }
+      .find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+8'
+  return `${time} ${offset}`
 }
 
-// Location plus live local time, e.g. "(GMT+8) 09:51".
 export default function Clock() {
-  const [{ time, offset }, setNow] = useState(read)
+  const [value, setValue] = useState(readClock)
 
   useEffect(() => {
-    const id = setInterval(() => setNow(read()), 15000)
+    const id = setInterval(() => setValue(readClock()), 15000)
     return () => clearInterval(id)
   }, [])
 
-  return (
-    <p className="hero-meta">
-      <span>{site.location}</span>
-      <span>
-        ({offset}) <time>{time}</time>
-      </span>
-    </p>
-  )
+  return <time className="telemetry-time">{value}</time>
 }
